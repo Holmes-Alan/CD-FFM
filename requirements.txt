@@ -1,0 +1,11 @@
+# Training, sampling and evaluation (GPU). The paper used PyTorch 2 on ROCm (AMD MI250X); CUDA works the same.
+torch>=2.1
+pytorch-lightning>=2.0
+einops
+numpy
+scipy
+# data preparation
+h5py
+cdsapi
+# figures and tables (CPU)
+matplotlib>=3.5

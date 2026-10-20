@@ -1,0 +1,16 @@
+# All paper figures and tables from the evaluation outputs (CPU only; numpy + matplotlib), after steps 08-10.
+python -u compare_eval.py --runs w3_reg_static,w3_fno_final,w3_iid_static,w2d_static_rbf,w2e_static_pl24_l8 --maps-tag final --metrics-tag final --paper-labels --out $CDFFM_ROOT/figures/final
+python -u compare_eval.py --runs baseline_bcsd@maps,w3_reg_static,w6_unet_reg@final_patch,w2e_static_pl24_l8@final_det0 --maps-tag final --metrics-tag final --field ensmean --no-spread --paper-labels --out $CDFFM_ROOT/figures/final_smooth
+python -u diagnose_speckle.py --run w2e_static_pl24_l8@final --ref w3_reg_static@final --date 2019-01-15 --out $CDFFM_ROOT/figures/final_speckle
+python -u diagnose_speckle.py --run w2e_static_pl24_l8@final --ref w3_reg_static@final --date 2019-07-28 --out $CDFFM_ROOT/figures/final_speckle
+# noise prior, ODE / flow-map steps, rank histograms, data scaling
+python -u paper_summary_figs.py
+# teaser and resolution-free figure; then ensemble and full-domain multi-resolution figures
+python -u paper_figs.py --t-date 2019-07-28
+python -u paper_figs.py --t-date 2019-07-28 --only extra
+python -u influence_figs.py
+python -u precip_tricks_fig.py 2019-01-01
+# tables -> $CDFFM_ROOT/paper_tables.md and paper_ci.md; TG vs (TX+TN)/2 in NGCD (Methods)
+python -u make_tables.py
+python -u bootstrap_ci.py
+python -u check_tg_consistency.py 2019

@@ -1,0 +1,4 @@
+# Generated from configs/train/<run>.json (the arguments recorded at training time). One GPU job per line;
+# add --device / --data-store to a line to override the defaults (first GPU; targets where they fit).
+# w6_unet_reg: CorrDiff-style baseline, stage 1: UNet regression
+python -u diffusion_baseline.py --name w6_unet_reg --stage reg --train-years 2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015 --val-year 2017 --patch 128 --batch-size 16 --ch 64 --mult 1,2,4,4 --n-res 2 --lr 0.0002 --warmup 1000 --max-steps 60000 --time-budget-min 240.0 --ema 0.999 --grad-clip 1.0 --val-every 2500 --ckpt-every 5000 --seed 0

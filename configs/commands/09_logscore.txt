@@ -1,0 +1,10 @@
+# Exact log score (backward RK4 ODE, 20 steps, exact 3x3 Jacobian trace), every 7th day of 2019 (GPU).
+python -u fast_logscore.py --run w2e_static_pl24_l8 --region lapland
+python -u fast_logscore.py --run w3_iid_static
+python -u fast_logscore.py --run w2d_static_rbf
+python -u fast_logscore.py --run w2d_static_pl24
+python -u fast_logscore.py --run w2e_static_pl24_l20
+python -u fast_logscore.py --run w3_fno_final
+python -u fast_logscore.py --run w3_fno16_final
+python -u fast_logscore.py --run w3_reg_static
+python -u fast_logscore.py --run w3_final_lapland

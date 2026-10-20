@@ -1,0 +1,4 @@
+# Generated from configs/train/<run>.json (the arguments recorded at training time). One GPU job per line;
+# add --device / --data-store to a line to override the defaults (first GPU; targets where they fit).
+# w5_flowmap: distilled flow map of the final model (needs w2e_static_pl24_l8)
+python -u fast_train.py --name w5_flowmap --backbone flower --objective flowmap --teacher w2e_static_pl24_l8 --fm-substeps 8 --fm-diag-prob 0.25 --noise field --noise-ls 0.5 --noise-features 1024 --noise-kernel powerlaw --noise-beta 2.4 --noise-lmax-km 500.0 --noise-lmin-km 8.0 --mc-weight 0.0 --doy-cond --target temp --static clim --train-years 2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015 --val-year 2017 --batch-size 16 --n-scattered 2048 --n-clusters 16 --points-per-cluster 32 --lr 0.0001 --warmup 500 --max-steps 20000 --time-budget-min 120.0 --ema 0.999 --grad-clip 1.0 --val-every 2000 --val-members 8 --val-ode-steps 2 --ckpt-every 2000 --seed 0

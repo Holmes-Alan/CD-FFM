@@ -1,0 +1,14 @@
+# data, runs and outputs live under $CDFFM_ROOT (default ./work), never in git
+work/
+logs/*
+!logs/.gitkeep
+*.npz
+*.npy
+*.nc
+*.zip
+# checkpoints, except the released weights-only ones
+*.ckpt
+!pretrained/runs/*/ckpt/*.ckpt
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

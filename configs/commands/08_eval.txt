@@ -1,0 +1,57 @@
+# Every evaluation behind the paper's tables and figures (one fast_eval.py call per line; GPU).
+# Results: $CDFFM_ROOT/runs/<run>/eval_<year>_<tag>/metrics.json. Run: python run.py configs/commands/08_eval.txt
+# --- Table 1, test year 2019, every day, 16 members, best validation checkpoint
+python -u fast_eval.py --run w5_flowmap         --ckpt best --members 16 --ode-steps 2 --year 2019 --tag final_map2
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --members 16 --year 2019 --tag final --region lapland
+python -u fast_eval.py --run w3_fno_final       --ckpt best --members 16 --year 2019 --tag final
+python -u fast_eval.py --run w3_fno16_final     --ckpt best --members 16 --tag final
+python -u fast_eval.py --run w3_reg_static      --ckpt best --year 2019 --tag final
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --members 1 --noise-scale 0 --year 2019 --tag final_det0
+python -u fast_eval.py --run baseline_bcsd      --baseline bcsd --year 2019 --tag final
+python -u fast_eval.py --run baseline_bcsd      --baseline bcsd --day-stride 1000 --tag maps
+# --- CorrDiff-style baseline (tiled inference) and CD-FFM on the same 55 days (every 7th day, 8 members)
+python -u fast_eval.py --run w6_unet_reg        --ckpt best --tag final_patch
+python -u fast_eval.py --run w6_corrdiff        --ckpt best --day-stride 7 --members 8 --edm-steps 18 --tag s7_patch
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --day-stride 7 --members 8 --tag s7_ref_daily
+python -u fast_eval.py --run w5_flowmap         --ckpt best --day-stride 7 --members 8 --ode-steps 2 --tag s7_map2_daily
+# --- other test years (Table 2, bootstrap intervals)
+python -u fast_eval.py --run w5_flowmap         --ckpt best --members 16 --ode-steps 2 --year 2016 --tag final_map2
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --members 16 --year 2016 --tag final
+python -u fast_eval.py --run w3_reg_static      --ckpt best --year 2016 --tag final
+python -u fast_eval.py --run w3_fno_final       --ckpt best --members 16 --year 2016 --tag final
+python -u fast_eval.py --run baseline_bcsd      --baseline bcsd --year 2016 --tag final
+python -u fast_eval.py --run w5_flowmap         --ckpt best --members 16 --ode-steps 2 --year 2018 --tag final_map2
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --members 16 --year 2018 --tag final
+python -u fast_eval.py --run w3_reg_static      --ckpt best --year 2018 --tag final
+python -u fast_eval.py --run w3_fno_final       --ckpt best --members 16 --year 2018 --tag final
+python -u fast_eval.py --run baseline_bcsd      --baseline bcsd --year 2018 --tag final
+# --- noise-prior ablation (Extended Data Table) and generalization to an unseen region
+python -u fast_eval.py --run w3_iid_static       --ckpt best --members 16 --tag final
+python -u fast_eval.py --run w2d_static_rbf      --ckpt best --members 16 --tag final
+python -u fast_eval.py --run w2d_static_pl24     --ckpt best --members 16 --tag final
+python -u fast_eval.py --run w2e_static_pl24_l20 --ckpt best --members 16 --tag final
+python -u fast_eval.py --run w3_final_lapland    --ckpt best --members 16 --tag final
+# --- static-descriptor ablation and data scaling (fair CRPS is unbiased across ensemble sizes)
+python -u fast_eval.py --run w2b_pl24      --ckpt best --tag best
+python -u fast_eval.py --run w2_flower_y10 --ckpt best --tag best
+python -u fast_eval.py --run w2_flower_y15 --ckpt best --members 16 --tag final
+python -u fast_eval.py --run w1_flower_doy --ckpt best --members 16 --tag final
+# --- inference-time studies, every 7th day, 8 members: ERA5 cell-mean constraint, Euler steps, flow-map steps
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --day-stride 7 --tag s7_ref
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --day-stride 7 --constraint exact --tag s7_exact
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --day-stride 7 --constraint exact_debiased --tag s7_debiased
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --day-stride 7 --ode-steps 2 --tag s7_ode2
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --day-stride 7 --ode-steps 5 --tag s7_ode5
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --day-stride 7 --ode-steps 20 --tag s7_ode20
+python -u fast_eval.py --run w5_flowmap --ckpt best --day-stride 7 --ode-steps 1 --tag s7_map1
+python -u fast_eval.py --run w5_flowmap --ckpt best --day-stride 7 --ode-steps 2 --tag s7_map2
+python -u fast_eval.py --run w5_flowmap --ckpt best --day-stride 7 --ode-steps 4 --tag s7_map4
+# --- map fields for the figures
+python -u fast_eval.py --run w2e_static_pl24_l8 --ckpt best --members 16 --day-stride 1000 --tag final_maps
+python -u fast_eval.py --run w3_reg_static      --ckpt best --day-stride 1000 --tag final_maps
+# --- precipitation (additional experiment)
+python -u fast_eval.py --run w4_rr_final      --ckpt best --members 16 --tag final
+python -u fast_eval.py --run w4_rr_reg        --ckpt best --tag final
+python -u fast_eval.py --run w4_rr_final      --ckpt best --members 1 --noise-scale 0 --tag final_det0
+python -u fast_eval.py --run w4_rr_final      --ckpt best --members 16 --day-stride 1000 --tag final_maps
+python -u fast_eval.py --run baseline_era5_rr --baseline era5_bilinear --target precip --tag best

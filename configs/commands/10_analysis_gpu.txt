@@ -1,0 +1,5 @@
+# GPU analyses that feed the figures (after the evaluations). One line per job.
+python -u paper_figdata.py multires --date 2019-07-28 && python -u paper_figdata.py multires_full --date 2019-07-28
+python -u paper_figdata.py teaser --dates 2019-07-28,2019-01-15 --auto-wet 1
+python -u influence_maps.py grad --day-stride 14 && python -u influence_maps.py corr
+python -u precip_tricks.py --bands 8,25,75 --map-date 2019-01-01
