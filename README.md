@@ -1,6 +1,7 @@
 # CD-FFM: climate downscaling with likelihood functional flow matching
 
 Code for *Climate downscaling with likelihood functional flow matching* (Liu, Toropainen and Boy; under review).
+Code archive: [10.5281/zenodo.23499076](https://doi.org/10.5281/zenodo.23499076) · Data, weights of all models and results: [10.5281/zenodo.23496724](https://doi.org/10.5281/zenodo.23496724)
 
 CD-FFM downscales ERA5 reanalysis (0.25°, about 25 km) to 1 km daily temperature over Norway, Sweden and Finland
 (the Nordic Gridded Climate Dataset, NGCD). It treats the high-resolution field as a **random function of
